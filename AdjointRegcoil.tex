@@ -23,6 +23,9 @@
 \affiliation{Department of Physics, University of Maryland, College Park, MD 20742, USA}
 \email{ejpaul@umd.edu}
 
+\author{(Coauthors)}
+
+\iffalse
 \author{M. Landreman}
 \affiliation{Institute for Research in Electronics and Applied Physics, University of Maryland, College Park, MD 20742, USA}
 
@@ -31,6 +34,7 @@
 
 \author{W. Dorland}
 \affiliation{Department of Physics, University of Maryland, College Park, MD 20742, USA}
+\fi
 
 \begin{abstract}
 We present a method for nonlinear gradient-based optimization of the stellarator coil-winding surface. We apply the adjoint method for sensitivity derivatives of the objective function, allowing for efficient computation of gradients while eliminating the numerical noise of derivative-free algorithms. The REGCOIL (Landreman 2017 \textit{Nucl. Fusion} \textbf{57} 046003) approach is used to obtain the coil shapes on the winding surface using a current potential method. Although this approach does not directly optimize coil shapes, we are able to improve engineering properties of the coils by targeting the root-mean-squared current density in the objective function. We obtain results for the W7-X and HSX winding surfaces which simultaneously decrease the normal magnetic field on the plasma surface,  increase the volume contained by the winding surface, and improve coil metrics in comparison with the actual winding surfaces. A technique for visualization of sensitivity derivatives obtained with the adjoint method is presented, with potential applications for understanding engineering tolerances. 
@@ -75,9 +79,9 @@ We present a new method for design of the coil-winding surface using adjoint-bas
 \subsection{Objective function}
 The cartesian components of the winding surface can be decomposed in Fourier harmonics.
 \begin{gather}
-x' = \sum_{m,n} r_{m,n}^c \cos(m \theta' - n N_p \zeta') \cos (\zeta') \\
-y' = \sum_{m,n} r_{m,n}^c \cos(m \theta' - n N_p \zeta') \sin (\zeta') \\
-z' = \sum_{m,n} z_{m,n}^s \sin(m \theta' - n N_p \zeta') 
+x' = \sum_{m,n} r_{mn}^c \cos(m \theta' - n N_p \zeta') \cos (\zeta') \\
+y' = \sum_{m,n} r_{mn}^c \cos(m \theta' - n N_p \zeta') \sin (\zeta') \\
+z' = \sum_{m,n} z_{mn}^s \sin(m \theta' - n N_p \zeta') 
 \label{Fourier}
 \end{gather}
 Here $N_p$ is the number of toroidal periods, $\zeta'$ is the normal toroidal angle, and $\theta'$ is a poloidal angle. We take the Fourier components of the winding surface, $\Omega = (r_{mn}^c, z_{mn}^s)$, as our optimization parameters and assume a desired plasma surface to be held fixed. Once the winding surface geometry is determined, our task is to obtain the surface current density, $\bm{K}$. The divergentless surface current density can be related to a scalar current potential, $\Phi$, the stream function for $\bm{K}$.
