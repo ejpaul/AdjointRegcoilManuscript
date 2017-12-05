@@ -75,6 +75,7 @@ We present a new method for design of the coil-winding surface using adjoint-bas
 
 \section{Winding surface optimization}
 \label{sect_opt}
+\FloatBarrier
 
 \subsection{Objective function}
 The cartesian components of the winding surface can be decomposed in Fourier harmonics.
@@ -120,7 +121,6 @@ To demonstrate this, we compute the coilset on the actual W7-X winding surface u
 \kappa = \frac{\bigg \rvert \der{\bm{r}}{t} \times \der{^2 \bm{r}}{t^2} \bigg \rvert}{\bigg \rvert \der{\bm{r}}{t} \bigg \rvert^3}
 \end{gather}
 
-\FloatBarrier
 \begin{figure}
 \begin{subfigure}[b]{0.3\textwidth}
 \includegraphics[width=0.57\textwidth]{target_2_2e6.pdf}
@@ -150,10 +150,11 @@ $\norm{\bm{K}}_2$ [MA/m] & Mean $l$ [m] & Mean $\Delta \zeta'$ [rad.] & Mean $\k
 \caption{Comparison of metrics for coils computed with \texttt{REGCOIL} using the actual W7-X winding surface. The regularization parameter $\lambda$ is varied to achieve these values of $\norm{\bm{K}}_2$.}
 \label{rmsKcoilmetrics}
 \end{table}
-\FloatBarrier
+
 
 The relative weights in equation \ref{objective_function} ($\alpha_1$, $\alpha_2$, and $\alpha_3$) are chosen such that each of the terms in the objective function have roughly similar magnitudes, though much tuning of these parameters is required to obtain results which simultaneously improve the physics properties (decrease $\chi^2_B$) and engineering properties (increase $V_{\text{coil}}$, decrease $\kappa$ and $\Delta \zeta'$).
 
+\FloatBarrier
 \subsection{Optimization constraints}
 \label{sect_constraint}
 
@@ -340,6 +341,7 @@ Actual coilset & & & & 2.24 & 0.36 & 5.70 \\ \hline
 \FloatBarrier
 \section{Winding surface sensitivity maps}
 \label{sect_sensitivity}
+\FloatBarrier
 
 With the adjoint method we have computed sensitivity derivatives of the objective function with respect to Fourier components of the winding surface, $\partial f/\partial \Omega$. While this representation of sensitivity derivatives is convenient for gradient-based optimization, visualization of the surface sensitivity in real space is obscured. Instead, we'd like to represent the sensitivity of $f$ with respect to normal displacements of surface area elements. 
 \begin{gather}
@@ -361,7 +363,7 @@ As both $\chi^2_B$ and $\norm{\bm{K}}_2$ are defined in terms of surface integra
 
 For the W7-X surface (figure \ref{w7x_sensitivity}), the region of large $S_{\chi^2_B}$ is highly localized in the concave region on the inboard side. This corresponds to the bean cross-section at $\zeta' = 0$ (see figure \ref{fig_w7x}, subplot a). The surface sensitivity of $\norm{\bm{K}}_2$ is anti-correlated with that of $\chi^2_B$. This can be understood in light of equation \ref{regcoil_minimization}. As $\partial \chi^2_B/\partial \Phi_k$ increases $\partial \norm{\bm{K}}_2/\partial \Phi_k$ must decrease, since $\norm{\bm{K}}_2 = \sqrt{ \chi^2_K/A_{\text{coil}}}$. The Fourier sensitivity derivatives of these two quantities would also be related by the chain rule, equation \ref{sensitivity_der}. The inverse relationship between these two sensitivity functions demonstrates the tradeoff one must make between optimizing for physics properties (by decreasing $d_{\text{coil-plasma}}$ in the concave region) and optimizing for engineering properties (by increasing $d_{\text{coil-plasma}}$ for smoother coil shapes). Although the region of high sensitivity is not as well localized on the HSX surface (figure \ref{hsx_sensitivity}), we note that $S_{\chi^2_B}$ and $S_{\norm{\bm{K}}}$ are again anti-correlated. 
 
-\FloatBarrier
+
 \begin{figure}
 \begin{subfigure}[b]{0.4\textwidth}
 \includegraphics[width=1\textwidth]{chi2_B_S.png}
