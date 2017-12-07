@@ -203,44 +203,9 @@ This corresponds to a fixed minimum coil-coil spacing. This constraint is enforc
 
 We recognize that there are many possible combinations of constraints, objective functions, and regularization conditions that could be used. For example, $\norm{\bm{K}}_2$ could be fixed to determine $\lambda$ while $K_{\text{max}}$ could be included in the objective function. We found that the formulation we have presented produced the best coil shapes. 
 
-<<<<<<< HEAD
 \section{Derivatives of $f$ and the adjoint method}
 \label{sect_adjoint}
 We must compute derivatives of $f$ with respect to the geometric components, $\Omega$, in order to use gradient-based optimization methods. The spectral condensation function, $S_p$, and volume, $V_{\text{coil}}$, are explicit functions of $\Omega$, so their analytic derivatives can be obtained. On the other hand, $\chi^2_B$ and $\norm{\bm{K}}_2$ depend both explicitly on coil geometry and on $\Phi(\Omega)$. One approach to obtain the derivatives of these quantities could be to solve the \texttt{REGCOIL} linear system $N_{\Omega} +1$ times, taking a finite difference step in each Fourier coefficient. However, if $N_{\Omega}$ (number of Fourier modes) is large, the computational cost of this method could be prohibitively expensive. Instead we will apply the adjoint method to compute derivatives. This technique will be demonstrated below. 
-=======
-The current potential $\Phi$ can be decomposed into single-valued and secular terms.
-\begin{gather}
-\Phi(\theta', \zeta') = \Phi_{\text{sv}}(\theta',\zeta') + \frac{ G \zeta'}{2 \pi} + \frac{I \theta'}{2 \pi}
-\end{gather}
-The secular terms are determined from the currents linking the coil surface poloidally and toroidally, while the single-valued term ($\Phi_{\text{sv}}$) is determined by solving the \texttt{REGCOIL} system. The single-valued current potential is chosen to minimize the primary objective function, $\chi^2$.
-\begin{gather}
-\chi^2 = \chi^2_B - \lambda \chi^2_K
-\label{primary_objective}
-\end{gather}
-Here $\chi^2_K$ is the surface-average-squared current density on the winding surface,
-\begin{gather}
-\chi^2_K = \int_{\text{coil}} d^2A \, \abs{\bm{K}}^2,
-\end{gather}
-and $\chi^2_B$ is defined in equation (\ref{chi2_B}). The regularization parameter $\lambda$ is chosen to obtain the target $K_{\text{max}}$. This problem is discretized by expanding $\Phi_{\text{sv}}$ in a finite Fourier series.
-\begin{gather}
-\Phi_{\text{sv}}(\theta',\zeta') = \sum_j \Phi_j \left( \begin{array}{c} \sin \\ \cos \end{array} \right)_j (m_j \theta' - n_j \zeta')
-\end{gather}
-For a stellarator symmetric configuration, only the sine series is needed. As the minimization of $\chi^2$ with respect to $\Phi_{j}$ is a linear least-squares problem, it can be solved via the normal equations to obtain a unique solution. The Fourier amplitudes, $\Phi_j$, are determined by solving a linear system,
-\begin{gather}
-\sum_k A_{j,k} \Phi_k = b_j,
-\label{forward}
-\end{gather}
-such that $\chi^2$ is minimized,
-\begin{gather}
-\partder{\chi^2}{\Phi_k} = \partder{\chi^2_B}{\Phi_k} + \lambda \partder{\chi^2_K}{\Phi_k} = 0.
-\label{regcoil_minimization}
-\end{gather}
-For additional details see \cite{Landreman2017}.
-
-\section{Sensitivity Derivatives and Adjoint Formalism}
-\label{sect_adjoint}
-We must compute sensitivity derivatives of $f$ with respect to the geometric parameters, $\Omega$, in order to use gradient-based optimization methods. The spectral condensation function, $S_p$, and volume, $V_{\text{coil}}$, are explicit functions of $\Omega$, so their analytic derivatives can be obtained. On the other hand, $\chi^2_B$ and $\norm{\bm{K}}_2$ depend both explicitly on coil geometry and on $\Phi(\Omega)$. One approach to obtain the sensitivity derivatives of these quantities could be to solve the \texttt{REGCOIL} linear system $N_{\Omega} +1$ times, taking a finite difference step in each Fourier coefficient. However this approach requires careful choice
-of the step size, and if $N_{\Omega}$ (number of Fourier modes) is large, the computational cost of this method could be prohibitively expensive. Instead we will apply the adjoint method. This technique will be demonstrated below. 
 
 The derivative of $\chi^2_B$ can be computed using the chain rule, 
 \begin{gather}
